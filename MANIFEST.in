@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include bpf *.css
+recursive-include bpf *.csv
+recursive-include bpf *.html
+recursive-include bpf *.ico
+recursive-include bpf *.js
+recursive-include bpf *.json
+recursive-include bpf *.md
+recursive-include bpf *.png
+recursive-include bpf *.py
+recursive-include bpf *.svg
+recursive-include bpf *.txt
+recursive-exclude bpf *.pyc
