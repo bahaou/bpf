@@ -111,22 +111,22 @@ def get_context(context):
 	onlyhome=settings.show_only_in_home_page
 	ishome= module in ["home","Home"]
 	if int(settings.show_nav)==1 and  ((onlyhome and ishome ) or (not onlyhome )) :
+		blocked=frappe.get_doc("User",frappe.session.user).block_modules
+		block=[b.module for b in blocked]
 		l=frappe.db.get_list("Module",filters=[["disabled",'in',["0"]],['owner1','in',["admin",frappe.session.user]]],fields=["*"])
+		l=frappe.db.get_list("Workspace",filters=[["show_on_top_bar","in",["1"]],["module","not in",block] ],fields=["*"])
 	context["box_size"]=settings.box_size or 60
 	if context["box_size"]<=0:
 		context["box_size"]=60
 	for i in l :
 		m={}
-		m["name"]=_(i["name1"])
-		m["enname"]=i["name1"]
+		m["name"]=_(i["title"])
+		m["enname"]=i["name"]
 		m["image"]=i["image"]
-		m["workspace"]=i["dashboard"] or "home"
+		m["workspace"]=i["name"] or "home"
 		m["color"]=i["color"] or '#2596be'
 		url="#"
-		if i.use_url and i.url:
-			url=i.url
-		if (not i.use_url) and i.dashboard:
-			url="/app/"+str(i.dashboard).lower().replace(" ","-")
+		url="/app/"+str(i.name).lower().replace(" ","-")
 		m["url"]=url
 		modules.append(m)
 	context["modules"]=modules
