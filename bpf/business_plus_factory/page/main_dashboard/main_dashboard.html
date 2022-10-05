@@ -1,0 +1,232 @@
+<div class="container-fluid">
+    <link rel="stylesheet" type="text/css" href="/assets/ssp_theme/css/main-home.css"/>
+            <style type="text/css">
+                #mainMenu{
+                    display: none !important;
+                }
+                #body{
+                    width: 100%;
+                }
+                
+            /*	.page-content{
+                    margin-right: 20px;
+                        margin-left: 20px;
+
+                }*/
+               /* .search-bar{
+                    display: none;
+                }*/
+                .container-fluid .row .col-md-11{
+                    width: 100%;
+                    max-width: 100% !important ; 
+
+                }
+
+            </style>
+        <div id="mainContent" class="col-xs-12 " style="width:100%;">
+	<!--                    
+                    <div id="barsystem" class="row text-center ">
+                        <div class="col-xs-12 ">
+                    
+                            <ul class="nameSystem list-inline justify-content-center">
+                                {% for d in modules %}		
+                                <li>
+                                    <a href="#" class="module" onclick="getModule(`{{d.module}}`)" >
+                                        <img src="{{d.icon}}" style="width:50%" alt="" />
+                                    </a>
+                                        <span>{{__(d.module)}}</span>
+                                </li>
+                                {% endfor %}									
+                            </ul>
+                            
+                             <a href=""><div class="closeApp"><i class="fa fa-arrow-down" aria-hidden="true"></i></div></a> 
+                            
+                        </div>
+                    </div>
+                        
+                <!-- <div id="mainContentchart" class="col-xs-12 col-sm-11 border border-secondary"> -->
+                    <!--
+                    <h3>المالية والحسابات العامة</h3>
+                    <br/>
+			-->
+            <div class="row">
+                    <!-- Accounting charts -->
+                    <div class="col-xs-12 col-sm-6 col-md-8">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Outgoing Bills") }}</div>
+                              <div id="chart_acc_1" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Incoming Bills") }}</div>
+                              <div id="chart_acc_2" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+            </div>
+                    <!-- end accounting charts -->
+                    <!-- Sellings Charts -->
+                    <h3>المبيعات</h3>
+                    <br/>
+            <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Item-wise Annual Sales") }}</div>
+                              <div id="chart_sell_1" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Sales Order Trends") }}</div>
+                              <div id="chart_sell_2" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+                      <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Purchase Order Analysis") }}</div>
+                              <div id="chart_buy_1" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+
+            </div>
+                    <!-- end sellings charts -->
+                    <!-- Buyings charts -->
+                    <h3>المشتريات</h3>
+                    <br/>
+            <div class="row">
+                  
+                    <div class="col-xs-12 col-md-8">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Purchase Order Trends") }}</div>
+                              <div id="chart_buy_2" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+                      <div class="col-xs-12 col-md-4">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Designation Wise Employee Count") }}</div>
+                              <div id="chart_hr_2" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+            </div>
+                    <!-- end buyings charts -->
+                    <!-- Stocks charts -->
+                    <h3>المخازن</h3>
+                    <br/>
+            <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Purchase Receipt Trends") }}</div>
+                              <div id="chart_stock_1" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+
+                    <div class="col-xs-12 col-md-4">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Delivery Trends") }}</div>
+                              <div id="chart_stock_2" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+                     <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Department Wise Employee Count") }}</div>
+                              <div id="chart_hr_1" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+            </div>
+                    <!-- end stocks charts -->
+                    <!-- HR charts -->
+                    <h3>الموارد البشرية</h3>
+                    <br/>
+           
+                    <!-- end HR charts -->
+                    <!-- Payrolls charts -->
+                    <h3>الأجور</h3>
+                    <br/>
+            <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Outgoing Salary") }}</div>
+                              <div id="chart_pay_1" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+
+                    <div class="col-xs-12 col-md-6">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Department Wise Salary") }}</div>
+                              <div id="chart_pay_2" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+            </div>
+                    <!-- end Payrolls charts -->
+                    <!-- Customers charts -->
+                    <h3>علاقات العملاء</h3>
+                    <br/>
+            <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Opportunity Trends") }}</div>
+                              <div id="chart_cust_1" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+
+                    <div class="col-xs-12 col-md-6">
+                            <div class="panel panel-default">
+                              <!-- Default panel contents -->
+                              <div class="panel-heading">{{ __("Incoming Leads") }}</div>
+                              <div id="chart_cust_2" class="panel-body">
+                                    <div class="boxCharts"></div>
+                              </div><!-- /.panel-body -->
+                            </div><!-- /.panel.panel-default -->
+                    </div>
+                    <!-- end Customers charts -->
+
+
+            </div>
+
+
+
+
+                    
+    </div><!-- /.mainContent -->
+</div><!-- /.container-fluid -->

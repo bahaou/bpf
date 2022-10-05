@@ -37,6 +37,8 @@ def get_context(context):
 			frappe.local.flags.redirect_location = redirect_to
 			raise frappe.Redirect
 
+	frappe.cache().hset("module", frappe.session.user,"home")
+	frappe.cache().hset("workspace", frappe.session.user,"Home")
 	context.no_header = True
 	context.for_test = "login.html"
 	context["title"] = "Login"

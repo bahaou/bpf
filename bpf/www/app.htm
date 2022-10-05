@@ -1,0 +1,499 @@
+ <link rel="stylesheet" href="css.css">
+
+<!DOCTYPE html>
+
+<!-- Created by CodingLab |www.youtube.com/CodingLabYT-->
+
+<html data-theme-mode="{{ desk_theme.lower() }}" data-theme="{{ desk_theme.lower() }}" dir={{ layout_direction }} lang="{{ lang }}">
+
+  <head>
+
+    <meta name="theme-color" content="#0089FF">
+
+		<!-- Windows Phone -->
+
+		<meta name="msapplication-navbutton-color" content="#0089FF">
+
+		<!-- iOS Safari -->
+
+		<meta name="apple-mobile-web-app-status-bar-style" content="#0089FF">
+
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+
+		<meta content="utf-8" http-equiv="encoding">
+
+		<meta name="author" content="">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,
+
+			maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+
+		<meta name="mobile-web-app-capable" content="yes">
+
+		<title>Frappe</title>
+
+		<link rel="shortcut icon"
+
+			href="{{ favicon or "/assets/frappe/images/frappe-favicon.svg" }}" type="image/x-icon">
+
+		<link rel="icon"
+
+			href="{{ favicon or "/assets/frappe/images/frappe-favicon.svg" }}" type="image/x-icon">
+
+		{% for include in include_css -%}
+
+		{{ include_style(include) }}
+
+		{%- endfor -%}
+
+	</head>
+
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+	  <link rel="stylesheet" type="text/css" href="/assets/bpf/css/main-home.css"/>
+
+     <link rel="stylesheet" type="text/css" href="/assets/bpf/css/sidebar.css"/>
+
+	<link rel="stylesheet" type="text/css" href="/assets/bpf/css/main3.css"/>
+
+      <style>
+
+		.app-logo{height:auto ! important;max-height:60px !important;}
+
+		[data-page-route=Workspaces] .layout-main .layout-side-section {display:none !important;}
+
+		.sidebar-toggle-btn{display:none !important;}
+
+		.carousel-cell {text-align:center;width: {{box_size}}px;height: {{box_size}}px;margin-right: 20px !important;;border-radius: 5px;counter-increment: carousel-cell;}
+
+          :root {
+
+  --bg-color: #e7e7e7 !important;
+
+ 
+
+}
+
+          .sidebar .nav-links li .sub-menu {background-color:{{sidebar_color}} ;}
+
+          .sidebar {background-color:{{sidebar_color}} ;}
+
+          .sidebar .nav-links li:hover {background-color:{{sidebar_color}} ;}
+
+          .sidebar .profile-details {background-color:{{sidebar_color}} ;}
+
+    
+
+              
+
+          
+
+.container-xl, .container-lg, .container-md, .container-sm, .container {
+
+    max-width: 100% !important; width:100% !important;
+
+}
+
+          .navbar .navbar-brand {margin-right:50px !important;}
+
+          [data-page-route=Workspaces] .layout-main-section {
+
+                  background-color: var(--bg-color) !important;
+
+          }
+
+          [data-page-route=Workspaces] .layout-main .layout-main-section-wrapper {
+
+              overflow-y : unset !important;
+
+          }
+
+          [data-page-route=Workspaces] .layout-main-section {
+
+              box-shadow:none !important;
+
+          }
+
+	</style>
+
+   </head>
+
+<body>
+
+    {% if module != 'home'%}
+
+    
+
+  <div class="sidebar close">
+
+    <div class="logo-details" style="text-align:left;display:block !important;">
+
+      
+
+      <span class="logo_name" style="float:left">Slnee&nbsp;&nbsp;&nbsp;</span>
+
+    </div>
+
+    <ul class="nav-links">
+
+      <li>
+
+        <a href="/app/home">
+
+          <i class='bx bx-grid-alt' ></i>
+
+          <span class="link_name">{{_('Home')}}</span>
+
+        </a>
+
+        <ul class="sub-menu blank">
+
+          <li><a class="link_name" href="/app/home" onclick="getModule(`home`,`Home`)">{{_('Dahboard')}}</a></li>
+
+        </ul>
+
+      </li>
+
+      {% for i in items%}
+
+        
+
+      <li>
+
+        <div class="iocn-link">
+
+          <a href="#" >
+
+         <i class='bx bx-collection' ></i>
+
+			
+
+            <span class="link_name">{{_(i.name) or _(module)}}</span>
+
+          </a>
+
+          <i class='bx bxs-chevron-down arrow' ></i>
+
+        </div>
+
+        <ul class="sub-menu">
+
+          <li><a class="link_name" href="#">{{_(i.name) or _(module)}}</a></li>
+
+            {% for s in i.sub %}
+
+          <li><a href="{{s.url}}" >{{_(s.name)}}</a></li>
+
+            {% endfor %}
+
+        </ul>
+
+      </li>
+
+      
+
+        {% endfor %}
+
+      <li>
+
+    <div class="profile-details">
+
+      <div class="profile-content">
+
+        <!--<img src="image/profile.jpg" alt="profileImg">-->
+
+      </div>
+
+      <div class="name-job">
+
+        <div class="profile_name"><a href='/app/user/{{user}}' style="color:white;">{{user}}</a></div>
+
+        <div class="job"></div>
+
+      </div>
+
+      <i class='bx bx-log-out' onclick="frappe.app.logout(),getModule(`home`,`Home`)"></i>
+
+    </div>
+
+  </li>
+
+</ul>
+
+  </div>
+
+  <section class="home-section">
+
+    
+
+      
+
+      {% include "public/icons/timeless/icons.svg" %}
+
+		{% include "templates/includes/splash_screen.html" %}
+
+		<div class="main-section">
+
+            
+
+<!--			
+
+			<header></header>
+
+			<div class="carousel"data-flickity='{ "freeScroll": true, "wrapAround": true ,"pageDots": false}'>
+
+				{% for m in modules%}
+
+					<div class="carousel-cell nameSystem " style="background-color:var(--fg-color) !important; ">
+
+						<a style="background-color:transparent !important; margin-bottom:0px !important;width:{{box_size}}px !important;height:{{box_size}}px !important;"href="#" class="module" onclick="getModule(`Manufacturing`)"> <img src="{{m.image}}" style="width:50%" alt=""> </a> <span>{{ m.name}}</span>
+
+					</div>
+
+				{% endfor %}
+
+			</div>
+
+			<div id="barsystem" class="row text-center "> 
+
+				{% for m in modules %}			
+
+				<div class="col-xs-12 " style="max-width:10% !important;"> 
+
+				<ul class="nameSystem list-inline justify-content-center">  
+
+					<li> <a style="width:{{box_size}}px !important;height:{{box_size}}px !important;"href="#" class="module" onclick="getModule(`Manufacturing`)"> <img src="{{m.image}}" style="width:50%" alt=""> </a> <span>{{ m.name}}</span></li>
+
+				</ul>  </div> 
+
+				{% endfor %}
+
+			</div>-->
+
+
+
+			
+
+						 <header></header>
+
+                        
+
+            <div style="width:100%;text-align:right;background-color:var(--bg-color) !important;"> 
+
+                <div style="height:60px;width:70px;position:absolute;top:0px;z-index:9999;right:60px;"> <a href="/app/home" style="height:100;width:100;" onclick="getModule(`home`,`Home`)"><div style="height:100%;width:100%"></div></a></div>
+
+                
+
+                <i class='bx bx-menu' style="font-size:35px !important;position:absolute;top:15px;Z-index:9999"></i> </div>
+
+                         
+
+							<div class="carousel" style="background-color:var(--bg-color) !important; "data-flickity='{ "freeScroll": true, "wrapAround": true ,"pageDots": false}'>
+
+								{% for m in modules %}
+
+								<div class="carousel-cell nameSystem " style="background-color:var(--fg-color) !important; ">
+
+									<a style="background-color:transparent !important; margin-bottom:0px !important;width:{{box_size}}px !important;height:{{box_size}}px !important;"href="{{m.url}}" class="module" onclick="getModule(`{{m.enname}}`,`{{m.workspace}}`)"> <img src="{{m.image}}" style="width:50%"  alt=""> </a> <span>{{ m.name}}</span>
+
+								</div>
+
+								{% endfor %}
+
+							</div>
+
+						<div id="body"></div>
+
+				{% else %}
+
+            
+
+             
+
+      {% include "public/icons/timeless/icons.svg" %}
+
+		{% include "templates/includes/splash_screen.html" %}
+
+		<div class="main-section">
+
+                 <header></header>
+
+                      {% if module != 'home'%}   
+
+            <div  style="width:100%;text-align:right;background-color:var(--bg-color) !important;">  
+
+                <div style="height:60px;width:70px;position:absolute;top:0px;z-index:9999;right:60px;"> <a href="/app/home" style="height:100;width:100;" onclick="getModule(`home`,`Home`)"><div style="height:100%;width:100%"></div></a></div>
+
+                <i class='bx bx-menu' style="font-size:35px !important;position:absolute;top:15px;Z-index:9999"></i> </div>
+
+            
+
+             {% endif %}
+
+							<div class="carousel" style="background-color:var(--bg-color) !important; "data-flickity='{ "freeScroll": true, "wrapAround": true ,"pageDots": false}'>
+
+								{% for m in modules %}
+
+								<div class="carousel-cell nameSystem " style="background-color:var(--fg-color) !important; ">
+
+									<a style="background-color:transparent !important; margin-bottom:0px !important;width:{{box_size}}px !important;height:{{box_size}}px !important;"href="{{m.url}}" class="module" onclick="getModule(`{{m.enname}}`,`{{m.workspace}}`)"> <img src="{{m.image}}" style="width:50%"  alt=""> </a> <span>{{ m.name}}</span>
+
+								</div>
+
+								{% endfor %}
+
+							</div>
+
+						<div id="body"></div>
+
+					
+
+			
+
+                {% endif %}
+
+			<footer></footer>
+
+		</div>
+
+		<div id="build-events-overlay"></div>
+
+
+		<script type="text/javascript">
+
+  
+
+
+            
+
+            function getModule(m,w){
+
+                console.log(m);
+
+                frappe.call({
+
+                    method:"bpf.cache.setcache",
+
+                    args: {
+
+                        "module":m,
+
+                        "workspace":w
+
+                        
+
+                    },
+
+                    callback(r){
+
+                        if(r.message){ console.log(r.message)}   
+
+                    }
+
+                })
+
+                
+
+            }
+
+            
+
+			window._version_number = "{{ build_version }}";
+
+			// browser support
+
+			window.app = true;
+
+			window.dev_server = {{ dev_server }};
+
+
+			if (!window.frappe) window.frappe = {};
+
+
+			frappe.boot = JSON.parse({{ boot }});
+
+			frappe._messages = frappe.boot["__messages"];
+
+			frappe.csrf_token = "{{ csrf_token }}";
+
+		</script>
+
+
+	{% for include in include_js %}
+
+	{{ include_script(include) }}
+
+	{% endfor %}
+
+
+	{% include "templates/includes/app_analytics/google_analytics.html" %}
+
+	{% include "templates/includes/app_analytics/mixpanel_analytics.html" %}
+
+
+		{% for sound in (sounds or []) %}
+
+		<audio preload="auto" id="sound-{{ sound.name }}" volume={{ sound.volume or 1 }}>
+
+			<source src="{{ sound.src }}"></source>
+
+		</audio>
+
+		{% endfor %}
+
+      
+
+  </section>
+
+  <script  type="text/javascript">
+
+              $(".app-logo").click(function(){
+
+ console.log("The paragraph was clicked.");
+
+});
+
+      
+
+  let arrow = document.querySelectorAll(".arrow");
+
+  for (var i = 0; i < arrow.length; i++) {
+
+    arrow[i].addEventListener("click", (e)=>{
+
+   let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+
+   arrowParent.classList.toggle("showMenu");
+
+    });
+
+  }
+
+  let sidebar = document.querySelector(".sidebar");
+
+  let sidebarBtn = document.querySelector(".bx-menu");
+
+  console.log(sidebarBtn);
+
+  sidebarBtn.addEventListener("click", ()=>{
+
+    sidebar.classList.toggle("close");
+
+  });
+
+  </script>
+
+</body>
+
+</html>
+

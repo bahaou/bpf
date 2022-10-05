@@ -1,0 +1,130 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:module",
+ "creation": "2022-07-06 14:56:11.398246",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "module",
+  "main_page_type",
+  "home_page",
+  "icon",
+  "column_break_3",
+  "default_logo",
+  "primary_sidebar_logo",
+  "disabled",
+  "section_break_5",
+  "primary_color",
+  "primary_button_color",
+  "hover_color",
+  "column_break_9",
+  "secondary_color",
+  "border_color"
+ ],
+ "fields": [
+  {
+   "fieldname": "module",
+   "fieldtype": "Link",
+   "label": "Module",
+   "options": "Module Def",
+   "unique": 1
+  },
+  {
+   "fieldname": "home_page",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Home Page",
+   "options": "main_page_type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "default_logo",
+   "fieldtype": "Attach Image",
+   "label": "Default Logo"
+  },
+  {
+   "fieldname": "primary_sidebar_logo",
+   "fieldtype": "Attach Image",
+   "label": "Primary Sidebar Logo"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "primary_color",
+   "fieldtype": "Color",
+   "label": "Primary Color"
+  },
+  {
+   "fieldname": "primary_button_color",
+   "fieldtype": "Color",
+   "label": "Primary Button Color"
+  },
+  {
+   "fieldname": "hover_color",
+   "fieldtype": "Color",
+   "label": "Hover Color"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "secondary_color",
+   "fieldtype": "Color",
+   "label": "Secondary Color"
+  },
+  {
+   "fieldname": "border_color",
+   "fieldtype": "Color",
+   "label": "Border Color"
+  },
+  {
+   "fieldname": "main_page_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Main Page Type",
+   "options": "Page\nDashboard",
+   "reqd": 1
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Attach Image",
+   "label": "Icon"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-09-29 13:21:15.248828",
+ "modified_by": "Administrator",
+ "module": "Ssp Theme",
+ "name": "Module Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

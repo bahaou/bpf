@@ -1,0 +1,136 @@
+.navbar-collapse.collapse {
+    display: flex !important;
+}
+
+.row.layout-main {
+    flex-direction: row-reverse;
+    height: 100%;
+}
+@media (max-width: 767px){
+.navbar .navbar-brand span 
+    display: none !important;
+   }
+   }
+@media (min-width: 768px){
+body.hide-menu .navbar #logo {
+    min-width: 70px;
+}
+}
+html{
+	overflow-x: hidden;
+}
+
+.list-inline li {
+    display: inline-block ;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.navbar {
+	height: 82px;
+}
+.col-sm-11 .col-sm-1 .col-sm-4{
+margin: 15px; 
+
+}
+/*@media (min-width: 768px) {
+body.hide-menu #mainMenu {
+    position: relative;
+    top: 0;
+    right: 15px;
+    max-width: 70px;
+}
+}*/
+.mainMenu{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+html[dir="ltr"]  .navbar .container{
+    width: calc(100% - 70px);
+
+}
+
+html[dir="rtl"]  .navbar .container{
+  width: calc(100% - 70px);
+
+}
+
+/*@media (min-width: 768px) {
+html[dir="ltr"] body.hide-menu #mainMenu {
+    position: relative;
+    top: 0;
+    left: 15px;
+    max-width: 70px;
+}
+}*/
+@media (min-width: 576px){
+.col-sm-11 {
+  flex: 0 0 95.667%;
+}
+}
+
+#mainMenu .dropdown-toggle::after {
+	display: none;
+	}
+#mainMenu .dropdown-menu{
+	transform: none !important;
+    top: 82px !important;
+    left: 0px !important;
+}
+@media (min-width: 992px) and (max-width: 1199px){
+.hidden-md {
+    display: flex !important;
+}
+}
+
+
+html[dir="ltr"] #mainMenu > ul > li.dropdown > .dropdown-menu {
+    left: 100% !important;
+}
+
+
+[data-page-route=Workspaces] .layout-main .layout-side-section {
+    display: none !important;
+}
+
+.breadcrumb>li+li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "/\00a0";
+}
+
+#navbar-breadcrumbs {
+	height: 60px;
+	padding: 15px;
+	font-size: 18px;
+}    
+ 
+.page-head.drop-shadow {
+
+    background: var(--bg-color);
+    position: sticky;
+    padding-top: 20px;
+ }
+
+.navbar .navbar-expand{
+  position: sticky;
+}
+    
+
+.title-text{
+    font-size: 14px;
+    font-weight: 100;
+}
+.panel-heading{
+    padding-top: 12px;
+    padding-right: 10px;
+}
+
+@media (min-width: 1200px){}
+.container, .container-sm, .container-md, .container-lg, .container-xl {
+    max-width: 100%;
+}
+}
+.dropdown-menu {
+  max-height: 1150px !important;
+}
+

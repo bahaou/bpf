@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html data-theme-mode="{{ desk_theme.lower() }}" data-theme="{{ desk_theme.lower() }}" dir={{ layout_direction }} lang="{{ lang }}">
+
+	<head>
+
+		<!-- Chrome, Firefox OS and Opera -->
+
+		<meta name="theme-color" content="#0089FF">
+
+		<!-- Windows Phone -->
+
+		<meta name="msapplication-navbutton-color" content="#0089FF">
+
+		<!-- iOS Safari -->
+
+		<meta name="apple-mobile-web-app-status-bar-style" content="#0089FF">
+
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+
+		<meta content="utf-8" http-equiv="encoding">
+
+		<meta name="author" content="">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,
+
+			maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<meta name="apple-mobile-web-app-status-bar-style" content="white">
+
+		<meta name="mobile-web-app-capable" content="yes">
+
+		<title>Frappe</title>
+
+		<link rel="shortcut icon"
+
+			href="{{ favicon or "/assets/frappe/images/frappe-favicon.svg" }}" type="image/x-icon">
+
+		<link rel="icon"
+
+			href="{{ favicon or "/assets/frappe/images/frappe-favicon.svg" }}" type="image/x-icon">
+
+        <link rel="stylesheet" type="text/css" href="/assets/bpf/css/main-home.css"/>
+
+	<link rel="stylesheet" type="text/css" href="/assets/bpf/css/main3.css"/>
+
+        <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+		{% for include in include_css -%}
+
+		{{ include_style(include) }}
+
+		{%- endfor -%}
+
+        <style>
+
+		.app-logo{height:auto ! important;max-height:60px !important;}
+
+		[data-page-route=Workspaces] .layout-main .layout-side-section {display:none !important;}
+
+		.sidebar-toggle-btn{display:none !important;}
+
+		.carousel-cell {text-align:center;width: {{box_size}}px;height: {{box_size}}px;margin-right: 20px !important;;border-radius: 5px;counter-increment: carousel-cell;}
+
+</style>
+
+	</head>
+
+	<body>
+
+		{% include "public/icons/timeless/icons.svg" %}
+
+		{% include "templates/includes/splash_screen.html" %}
+
+		
+		<div class="main-section">
+
+			<header></header>
+
+                <div class="carousel" style="width:95%;"data-flickity='{ "freeScroll": true, "wrapAround": true ,"pageDots": false}'>
+
+								{% for m in modules %}
+
+								<div class="carousel-cell nameSystem " style="background-color:var(--fg-color) !important; ">
+
+									<a style="background-color:transparent !important; margin-bottom:0px !important;width:{{box_size}}px !important;height:{{box_size}}px !important;"href="{{m.url}}" class="module" onclick="getModule(`Manufacturing`)"> <img src="{{m.image}}" style="width:50%"  alt=""> </a> <span>{{ m.name}}</span>
+
+								</div>
+
+								{% endfor %}
+
+							</div>
+
+			<div id="body"></div>
+
+			<footer></footer>
+
+		</div>
+		<div id="build-events-overlay"></div>
+
+
+		<script type="text/javascript">
+
+			window._version_number = "{{ build_version }}";
+
+			// browser support
+
+			window.app = true;
+
+			window.dev_server = {{ dev_server }};
+
+
+			if (!window.frappe) window.frappe = {};
+
+
+			frappe.boot = JSON.parse({{ boot }});
+
+			frappe._messages = frappe.boot["__messages"];
+
+			frappe.csrf_token = "{{ csrf_token }}";
+
+		</script>
+
+
+	{% for include in include_js %}
+
+	{{ include_script(include) }}
+
+	{% endfor %}
+
+
+	{% include "templates/includes/app_analytics/google_analytics.html" %}
+
+	{% include "templates/includes/app_analytics/mixpanel_analytics.html" %}
+
+
+		{% for sound in (sounds or []) %}
+
+		<audio preload="auto" id="sound-{{ sound.name }}" volume={{ sound.volume or 1 }}>
+
+			<source src="{{ sound.src }}"></source>
+
+		</audio>
+
+		{% endfor %}
+
+	</body>
+
+</html>
+

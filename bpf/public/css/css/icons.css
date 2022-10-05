@@ -1,0 +1,30 @@
+
+/* ==========================================================================
+   Icons
+   ========================================================================== */
+
+/*
+	Icons-34
+***************/
+[class^="icons34-"],
+[class*=" icons34-"] {
+  display: inline-block;
+  width: 34px;
+  height: 32px;
+  line-height: 32px;
+  vertical-align: text-top;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: cover;
+  margin: 0px;
+}
+.icons34-1{background-image: url("../img/icons/icon-1.png");}
+.icons34-2{background-image: url("../img/icons/icon-2.png");}
+.icons34-3{background-image: url("../img/icons/icon-3.png");}
+.icons34-4{background-image: url("../img/icons/icon-4.png");}
+.icons34-5{background-image: url("../img/icons/icon-5.png");}
+.icons34-6{background-image: url("../img/icons/icon-6.png");}
+.icons34-7{background-image: url("../img/icons/icon-7.png");}
+.icons34-8{background-image: url("../img/icons/icon-8.png");}
+.icons34-9{background-image: url("../img/icons/icon-9.png");}

@@ -61,20 +61,73 @@ def get_context(context):
 			"mixpanel_id": frappe.conf.get("mixpanel_id"),
 		}
 	)
+	module="Home"
+	workspace="Home"
+	sidebar_color="#154c79"
+	if frappe.cache().hget("module", frappe.session.user):
+		module = frappe.cache().hget("module", frappe.session.user)
+		sidebar_color=frappe.get_value("Module",module,"color") or "#154c79"
+	if frappe.cache().hget("workspace", frappe.session.user):
+		workspace = frappe.cache().hget("workspace", frappe.session.user)
+		n=workspace
+	try:
+		workspace=frappe.get_doc("Workspace",workspace)
+		links=workspace.links
+	except:
+		links=[]
+		sub=[]
+	baritems=[]
+	i={}
+	for l in links:
+		if l.type=="Card Break" :
+			if i!={}:
+				i["sub"]=sub
+				if "name" not in i.keys():
+					i["name"]=n
+				baritems.append(i)
+			i={"name":l.label,"image":l.image}
+			sub=[]
+			
+		else:
+			if l.link_type=="Report":
+				url="/app/query-report/"+l.link_to
+			else :
+				url="/app/"+l.link_to.lower().replace(" ","-")
+			try:
+				sub.append({"name":l.label,"url":url})
+			except:
+				sub=[{"name":l.label,"url":url}]
+	if links!=[]:
+		i["sub"]=sub
+		baritems.append(i)
+	context["items"]=baritems
+	context["module"]=module
+	context["sidebar_color"]=sidebar_color
+	context["user"]=frappe.session.user
 	modules=[]
 	context["url"]=frappe.utils.get_url()
 	l=[]
 	settings=frappe.get_doc("Website Settings")
-	if int(settings.show_nav)==1:
-		l=frappe.db.get_list("Module",filters={"disabled":"0"},fields=["*"])
+	onlyhome=settings.show_only_in_home_page
+	ishome= module in ["home","Home"]
+	if int(settings.show_nav)==1 and  ((onlyhome and ishome ) or (not onlyhome )) :
+		l=frappe.db.get_list("Module",filters=[["disabled",'in',["0"]],['owner1','in',["admin",frappe.session.user]]],fields=["*"])
 	context["box_size"]=settings.box_size or 60
 	if context["box_size"]<=0:
 		context["box_size"]=60
 	for i in l :
 		m={}
 		m["name"]=_(i["name1"])
+		m["enname"]=i["name1"]
 		m["image"]=i["image"]
+		m["workspace"]=i["dashboard"] or "home"
 		m["color"]=i["color"] or '#2596be'
+		url="#"
+		if i.use_url and i.url:
+			url=i.url
+		if (not i.use_url) and i.dashboard:
+			url="/app/"+str(i.dashboard).lower().replace(" ","-")
+		m["url"]=url
 		modules.append(m)
 	context["modules"]=modules
 	return context
