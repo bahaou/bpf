@@ -346,7 +346,7 @@
 
              {% endif %}
 
-                    <div id="addmodule" style="margin-right: 20px;cursor: pointer;width:30px">
+                    <div id="addmodule" style="display:none;margin-right: 20px;cursor: pointer;width:30px">
 
               <span class="sidebar-item-icon" item-icon="add" style=""><svg class="icon  icon-md" style="width:30px !important;height:30px !important;">
 
@@ -476,6 +476,14 @@
   </section>
 
   <script  type="text/javascript">
+
+      $(".app-logo").click(function(){
+
+            console.log("logo"),                   
+
+      });
+
+      
 
         $("#addmodule").click(function(){
 

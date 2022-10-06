@@ -1,0 +1,805 @@
+frappe.pages['main_dashboard'].on_page_load = function(wrapper) {
+
+      var page = frappe.ui.make_app_page({
+
+          parent: wrapper,
+
+          title: 'الصفحة الرئيسية',
+
+          single_column: true
+
+      });
+
+/*      modules_ = ['Accounts', 'Assets', 'Buying', 'CRM', 'Loan Management', 'Manufacturing', 'Payroll', 'Projects', 'Selling', 'Slnee Committee', 'Slnee Quality', 'Stock', 'Users', "HR"];
+
+      charts = ['']
+
+      var modules = frappe.boot.allowed_workspaces;
+
+      allow = []
+
+      modules.forEach(element =>
+
+          allow.push(element.module)
+
+      );*/
+
+  
+
+      allowed_modules = [];
+
+  
+
+      frappe.require(['/assets/bpf/css/main-home.css']);
+
+  
+
+  
+
+      $("#navlinks").css("display", "none");
+
+      $(".navbar-brand img").attr("src", "/assets/bpf/img/logo/logo.jpg");
+
+      $(".navbar-brand img").css("height", "70px");
+
+      $("#logo").css("background-color", "transparent");
+
+      $("#logo").css("margin-right", "26px");
+
+      $("#logo img").css("max-width", "260px");
+
+      $("#mainMenu").css("display", "none !important");
+
+      $(".main-section .row").attr("style", "");
+
+      $(".page-head").css("display", "none");
+
+  
+
+      page.main.html(frappe.render_template('main_dashboard'));
+
+  
+
+      frappe.require(['/assets/bpf/repository/js/vendor/highcharts/highcharts.js',
+
+              '/assets/bpf/repository/js/vendor/highcharts/modules/exporting.js',
+
+              '/assets/bpf/js/charts.js',
+
+              '/assets/bpf/js/main.js'
+
+          ],
+
+          () => {
+
+  
+
+              var outgoing_bills = {
+
+                  "chart_name": "Outgoing Bills (Sales Invoice)",
+
+                  "time_interval": "Monthly"
+
+              };
+
+              var incoming_bills = {
+
+                  "chart_name": "Incoming Bills (Purchase Invoice)",
+
+                  "time_interval": "Monthly"
+
+              };
+
+              var item_wise = {
+
+                  "report_name": "Item-wise Sales History",
+
+                  "filters": {
+
+                      "from_date": "2022-01-01",
+
+                      "to_date": "2022-12-31",
+
+                      "company": frappe.defaults.get_user_default("Company")
+
+                  }
+
+              };
+
+              var sales_order_trends = {
+
+                  "report_name": "Sales Order Trends",
+
+                  "filters": {
+
+                      "fiscal_year": "2022",
+
+                      "based_on": "Item",
+
+                      "company": frappe.defaults.get_user_default("Company"),
+
+                      "period": "Monthly"
+
+                  }
+
+              };
+
+              var purchase_order_analysis = {
+
+                  "report_name": "Purchase Order Analysis",
+
+                  "filters": {
+
+                      "from_date": "2022-01-01",
+
+                      "to_date": "2022-12-31",
+
+                      "company": frappe.defaults.get_user_default("Company"),
+
+                      "period": "Monthly"
+
+                  }
+
+              }
+
+              var purchase_order_trends = {
+
+                  "report_name": "Purchase Order Trends",
+
+                  "filters": {
+
+                      "period_based_on": "posting_date",
+
+                      "fiscal_year": "2022",
+
+                      "based_on": "Item",
+
+                      "company": frappe.defaults.get_user_default("Company"),
+
+                      "period": "Monthly"
+
+                  }
+
+              }
+
+              var purchase_recipt_trends = {
+
+                  "report_name": "Purchase Receipt Trends",
+
+                  "filters": {
+
+                      "company": frappe.defaults.get_user_default("Company"),
+
+                      "period": "Monthly",
+
+                      "fiscal_year": "2022",
+
+                      "period_based_on": "posting_date",
+
+                      "based_on": "Item"
+
+                  }
+
+              };
+
+              var outgoing_salary = {
+
+                  "chart_name": "Outgoing Salary",
+
+                  "filters": [
+
+                      ["Salary Slip", "docstatus", "=", "1", false],
+
+                      ["Salary Slip", "company", "=", frappe.defaults.get_user_default("Company")]
+
+                  ]
+
+              };
+
+              var departement_wise_salary = {
+
+                  "chart_name": "Department Wise Salary(Last Month)",
+
+                  "filters": [
+
+                      ["Salary Slip", "docstatus", "=", "1", false],
+
+                      ["Salary Slip", "company", "=", frappe.defaults.get_user_default("Company")]
+
+                  ]
+
+              };
+
+              var opportunity_trend = {
+
+                  "chart_name": "Opportunity Trends",
+
+                  "timespan": "Last Quarter",
+
+                  "filters": [
+
+                      ["Opportunity", "company", "=", frappe.defaults.get_user_default("Company")]
+
+                  ]
+
+              };
+
+              var incoming_leads = {
+
+                  "chart_name": "Incoming Leads",
+
+                  "time_interval": "Weekly",
+
+                  "filters": [
+
+                      ["Lead", "company", "=", frappe.defaults.get_user_default("Company")]
+
+                  ]
+
+              };
+
+              set_chart_def_options();
+
+              // accounting charts
+
+              get_chart_from_erpnext_doctype_dashboard_api(outgoing_bills, "chart_acc_1", "column");
+
+              get_chart_from_erpnext_doctype_dashboard_api(incoming_bills, "chart_acc_2", "column");
+
+              // selling charts
+
+              get_chart_data_from_erpnext_reports(item_wise, "chart_sell_1"); // Item-wise Annual Sales chart
+
+              get_chart_data_from_erpnext_reports(sales_order_trends, "chart_sell_2"); // Sales Order Trends chart
+
+              // buying charts
+
+              get_chart_data_from_erpnext_reports(purchase_order_analysis, "chart_buy_1"); // random = Math.floor(Math.random() * months.length);
+
+              get_chart_data_from_erpnext_reports(purchase_order_trends, "chart_buy_2");
+
+              //stock charts
+
+              get_chart_data_from_erpnext_reports(purchase_recipt_trends, "chart_stock_1");
+
+              get_chart_from_custom_api("chart_stock_2", 16);
+
+              //HR charts
+
+              get_chart_from_custom_api("chart_hr_1", 3);
+
+              get_chart_from_custom_api("chart_hr_2", 4);
+
+              // payroll charts
+
+              get_chart_from_erpnext_doctype_dashboard_api(outgoing_salary, "chart_pay_1", "line");
+
+              get_chart_from_erpnext_doctype_dashboard_api(departement_wise_salary, "chart_pay_2", "column");
+
+              // customer crm
+
+              get_chart_from_erpnext_doctype_dashboard_api(opportunity_trend, "chart_cust_1", "column");
+
+              get_chart_from_erpnext_doctype_dashboard_api(incoming_leads, "chart_cust_2", "line");
+
+  
+
+  
+
+  
+
+          });
+
+  
+
+      function get_chart_from_erpnext_doctype_dashboard_api(c_args, chart_id, c_type) {
+
+         frappe.call({
+
+              method: 'bpf.business_plus_factory.page.main_dashboard.main_dashboard.has_permission',
+
+              freeze: false,
+
+              freeze_message: "loading...",
+
+              async: true,
+
+              args: {"doctype": "Dashboard Chart","doc":c_args['chart_name']},
+
+              callback: function(r) {
+
+                if(r.message){
+
+
+          /////////////////////////////////////
+
+          frappe.call({
+
+              method: 'frappe.desk.doctype.dashboard_chart.dashboard_chart.get',
+
+              freeze: false,
+
+              freeze_message: "test loading",
+
+              async: true,
+
+              args: c_args,
+
+              callback: function(r) {
+
+                  if (r.message) {
+
+                      f_args = r.message;
+
+                      f_args.datasets[0].data = f_args.datasets[0].values;
+
+                      generate_column_chart_from_erpnext_doctype_dashboard(chart_id, f_args, c_type);
+
+                  }
+
+              }
+
+          });
+
+  }
+
+  else{
+
+    $("#"+chart_id).parent().parent().css('display',"none");
+
+
+  }
+
+          /////////////////////////////////////
+
+           }
+
+          });
+
+      }
+
+  
+
+      function generate_column_chart_from_erpnext_doctype_dashboard(chart_id, args, c_type) {
+
+          //////////////////////////////
+
+          $('#' + chart_id + ' .boxCharts').highcharts({
+
+              chart: {
+
+                  type: c_type
+
+              },
+
+              yAxis: {
+
+                  title: {
+
+                      enabled: false
+
+                  }
+
+              },
+
+  
+
+              xAxis: {
+
+                  categories: args.labels,
+
+                  title: {
+
+                      enabled: false
+
+                  }
+
+              },
+
+  
+
+              legend: {
+
+                  enabled: false
+
+              },
+
+  
+
+              plotOptions: {
+
+                  series: {
+
+                      label: {
+
+                          connectorAllowed: false
+
+                      },
+
+                  }
+
+              },
+
+  
+
+              series: args.datasets,
+
+  
+
+          });
+
+          //////////////////////////////
+
+      }
+
+  
+
+      function get_chart_from_custom_api(chart_id, id) {
+
+          /////////////////////////////////////
+
+          frappe.call({
+
+              method: 'bpf.apis.home_dashboard_apis.get_chart_data',
+
+              freeze: false,
+
+              freeze_message: "test loading",
+
+              async: true,
+
+              args: {
+
+                  "chart_id": id
+
+              },
+
+              callback: function(r) {
+
+                  if (r.message) {
+
+                      f_args = r.message;
+
+                      console.log("apisss", f_args);
+
+                      if (id == 16) {
+
+                          horizontal_column_chart_generator_version_api(chart_id, f_args, "column");
+
+                      } else if (id == 3) {
+
+                          pie_dount_chart_generator_version_api(chart_id, f_args);
+
+                      } else if (id == 4) {
+
+                          pie_dount_chart_generator_version_api(chart_id, f_args);
+
+                      }
+
+                  }
+
+              }
+
+          });
+
+  
+
+          /////////////////////////////////////
+
+      }
+
+  
+
+      function get_chart_data_from_erpnext_reports(c_args, chart_id) {
+
+          //////////////////////////////////
+
+          console.log(c_args['report_name']);
+
+          frappe.call({
+
+              method: 'bpf.business_plus_factory.page.main_dashboard.main_dashboard.has_permission',
+
+              freeze: false,
+
+              freeze_message: "loading...",
+
+              async: true,
+
+              args: {"doctype": "Report","doc":c_args['report_name']},
+
+              callback: function(r) {
+
+
+               if(r.message){
+
+                      console.log(c_args['report_name']);
+
+                console.log(r.message);
+
+                console.log("SDSDds");
+
+          frappe.call({
+
+              method: 'frappe.desk.query_report.run',
+
+              freeze: false,
+
+              freeze_message: "loading...",
+
+              async: true,
+
+              args: c_args,
+
+              callback: function(r) {
+
+                  console.log(r.message);
+
+                  if (r.message.chart.data) {
+
+                      f_args = r.message.chart;
+
+                      f_args.data.datasets[0].data = f_args.data.datasets[0].values;
+
+                      if (f_args.type == "donut") {
+
+                          f_args.type = "pie";
+
+                          pie_dount_chart_generator(chart_id, f_args);
+
+                          return;
+
+                      }
+
+                      if (f_args.type == "bar") {
+
+                        f_args.type = "column";
+
+                      }
+
+                      //return r.message.chart;
+
+                      horizontal_column_chart_generator(chart_id, f_args, f_args.type);
+
+                  } else {
+
+                      //return {"data":{"label":"","datasets":[]}};
+
+                      horizontal_column_chart_generator(chart_id, {
+
+                          "data": {
+
+                              "label": "",
+
+                              "datasets": []
+
+                          }
+
+                      }, r.message.chart.type);
+
+                  }
+
+              }
+
+          });e_dashboard(chart_id, args, c_type) {
+
+          //////////////////////////////
+
+          $('#' + chart_id + ' .boxCharts').highcharts({
+
+              chart: {
+
+                  type: c_type
+
+              },
+
+              yAxis: {
+
+                  title: {
+
+                      enabled: false
+
+                  }
+
+              },
+
+  
+
+              xAxis: {
+
+                  categories: args.labels,
+
+                  title: {
+
+                      enabled: false
+
+                  }
+
+              },
+
+  
+
+              legend: {
+
+                  enabled: false
+
+              },
+
+  
+
+              plotOptions: {
+
+                  series: {
+
+                      label: {
+
+                          connectorAllowed: false
+
+                      },
+
+                  }
+
+              },
+
+  
+
+              series: args.datasets,
+
+  
+
+          });
+
+          //////////////////////////////
+
+      }
+
+  
+
+      function get_chart_from_custom_api(chart_id, id) {
+
+          /////////////////////////////////////
+
+          frappe.call({
+
+              method: 'bpf.apis.home_dashboard_apis.get_chart_data',
+
+              freeze: false,
+
+              freeze_message: "test loading",
+
+              async: true,
+
+              args: {
+
+                  "chart_id": id
+
+              },
+
+              callback: function(r) {
+
+                  if (r.message) {
+
+                      f_args = r.message;
+
+                      console.log("apisss", f_args);
+
+                      if (id == 16) {
+
+                          horizontal_column_chart_generator_version_api(chart_id, f_args, "column");
+
+                      } else if (id == 3) {
+
+                          pie_dount_chart_generator_version_api(chart_id, f_args);
+
+                      } else if (id == 4) {
+
+                          pie_dount_chart_generator_version_api(chart_id, f_args);
+
+                      }
+
+                  }
+
+              }
+
+          });
+
+  
+
+          /////////////////////////////////////
+
+      }
+
+  
+
+      function get_chart_data_from_erpnext_reports(c_args, chart_id) {
+
+          //////////////////////////////////
+
+          console.log(c_args['report_name']);
+
+          frappe.call({
+
+              method: 'bpf.business_plus_factory.page.main_dashboard.main_dashboard.has_permission',
+
+              freeze: false,
+
+              freeze_message: "loading...",
+
+              async: true,
+
+              args: {"doctype": "Report","doc":c_args['report_name']},
+
+              callback: function(r) {
+
+
+               if(r.message){
+
+                      console.log(c_args['report_name']);
+
+                console.log(r.message);
+
+                console.log("SDSDds");
+
+          frappe.call({
+
+              method: 'frappe.desk.query_report.run',
+
+              freeze: false,
+
+              freeze_message: "loading...",
+
+              async: true,
+
+              args: c_args,
+
+              callback: function(r) {
+
+                  console.log(r.message);
+
+                  if (r.message.chart.data) {
+
+                      f_args = r.message.chart;
+
+                      f_args.data.datasets[0].data = f_args.data.datasets[0].values;
+
+                      if (f_args.type == "donut") {
+
+                          f_args.type = "pie";
+
+                          pie_dount_chart_generator(chart_id, f_args);
+
+                          return;
+
+                      }
+
+                      if (f_args.type == "bar") {
+
+                        f_args.type = "column";
+
+                      }
+
+                      //return r.message.chart;
+
+                      horizontal_column_chart_generator(chart_id, f_args, f_args.type);
+
+                  } else {
+
+                      //return {"data":{"label":"","datasets":[]}};
+
+                      horizontal_column_chart_generator(chart_id, {
+
+                          "data": {
+
+                              "label": "",
+
+                              "datasets": []
+
+                          }
+
+                      }, r.message.chart.type);
+
+                  }
+
+              }
+
+          });

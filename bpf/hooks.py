@@ -9,7 +9,7 @@ app_license = "MIT"
 
 # Includes in <head>
 # ------------------
-
+fixtures = ["Custom Field"]
 # include js, css files in header of desk.html
 # app_include_css = "/assets/bpf/css/bpf.css"
 # app_include_js = "/assets/bpf/js/bpf.js"
